@@ -4,8 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:md2_tab_indicator/md2_tab_indicator.dart';
+// import 'package:md2_tab_indicator/md2_tab_indicator.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:studentresourceapp/components/custom_loader.dart';
 import 'package:studentresourceapp/components/error_animatedtext.dart';
 import 'package:studentresourceapp/components/nocontent_animatedtext.dart';
@@ -13,7 +14,7 @@ import 'package:studentresourceapp/pages/pdf.dart';
 import 'package:studentresourceapp/utils/unicorndial_edited.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:get_it/get_it.dart';
-import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
+// import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import '../utils/contstants.dart';
 
 class CallService {
@@ -253,24 +254,30 @@ class _SubjectState extends State<Subject> with SingleTickerProviderStateMixin {
                 fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
           ),
           bottom: TabBar(
-            indicator: MD2Indicator(
-                indicatorHeight: 4,
-                indicatorColor: Colors.white,
-                indicatorSize: MD2IndicatorSize.normal),
-            tabs: [
+            tabs: const [
               Tab(
                 icon: ImageIcon(AssetImage('assets/svgIcons/book.png')),
-                text: 'Material',
-              ),
-              Tab(
-                icon: ImageIcon(AssetImage('assets/svgIcons/pencil.png')),
-                text: 'Q. Paper',
+                text: "Material",
               ),
               Tab(
                 icon: ImageIcon(AssetImage('assets/svgIcons/link.png')),
-                text: 'Links',
-              )
+                text: "Links",
+              ),
+              Tab(
+                icon: ImageIcon(AssetImage('assets/svgIcons/pencil.png')),
+                text: "Q. Paper",
+              ),
             ],
+            controller: _tabController,
+            labelColor: Colors.white,
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorWeight: 4,
+            indicatorPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            indicatorColor: Colors.white,
+            labelStyle:
+            TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
+            unselectedLabelColor: AppTheme.colors.SKYBLUE,
+            unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
           ),
         ),
         body: TabBarView(
@@ -710,7 +717,18 @@ class ListItem extends StatelessWidget {
                 size: 34.0,
               ),
               onPressed: () {
-                FlutterOpenWhatsapp.sendSingleMessage(subheaading, "");
+                // FlutterOpenWhatsapp.sendSingleMessage(subheaading, "");
+
+                Fluttertoast.showToast(
+                  msg: "This is a toast message",
+                  toastLength: Toast.LENGTH_SHORT, // Duration for which the toast is visible (Toast.LENGTH_SHORT or Toast.LENGTH_LONG)
+                  gravity: ToastGravity.BOTTOM, // Toast gravity (ToastGravity.TOP, ToastGravity.CENTER, ToastGravity.BOTTOM)
+                  timeInSecForIosWeb: 1, // Time for iOS web
+                  backgroundColor: Colors.grey, // Background color of the toast
+                  textColor: Colors.white, // Text color of the toast
+                  fontSize: 16.0, // Font size of the toast message
+                );
+
               })
         ],
       );
